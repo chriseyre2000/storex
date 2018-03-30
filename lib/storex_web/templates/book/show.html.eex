@@ -9,7 +9,7 @@
 
 <div class="value-tag">
     <h2 class="value-tag__title">price</h2>
-    <span class="value-tag__content"><%= @book.price %>
+    <span class="value-tag__content"><%= format_price(@book.price) %>
 </div>
 
 <%= link "Add to cart", 
