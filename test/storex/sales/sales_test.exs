@@ -2,6 +2,25 @@ defmodule Storex.SalesTest do
   use Storex.DataCase
   alias Storex.{Sales, Store}
 
+  def book_fixture(attrs \\ %{}) do
+    default_attrs = %{
+      title: "Book1",
+      description: "Description1",
+      image_url: "book1.jpg",
+      price: "29.90"
+    }
+    {:ok, book} = attrs
+    |> Enum.into(default_attrs)
+    |> Store.create_book()
+
+    book
+  end
+
+  def cart_fixture() do
+    {:ok, cart} = Sales.create_cart()
+    cart
+  end
+
   describe "carts" do
     alias Storex.Sales.Cart
 
@@ -10,19 +29,13 @@ defmodule Storex.SalesTest do
     end
 
     test "get_cart!/1 returns a cart" do
-      {:ok, cart} = Sales.create_cart()
+      cart = cart_fixture()
       assert Sales.get_cart!(cart.id) == cart
     end
 
     test "add_book_to_cart/2 creates or increments a line_item" do
-      {:ok, book} = Store.create_book(%{
-        title: "Title",
-        description: "Description",
-        image_url: "product.jpg",
-        price: "29.90"
-      })
-
-      {:ok, cart} = Sales.create_cart()
+      book = book_fixture()
+      cart = cart_fixture()
       {:ok, line_item1} = Sales.add_book_to_cart(book, cart)
       {:ok, line_item2} = Sales.add_book_to_cart(book, cart)
 
@@ -34,14 +47,8 @@ defmodule Storex.SalesTest do
     end
 
     test "remove book from cart/2 decrements or deletes a line item" do
-      {:ok, book} = Store.create_book(%{
-        title: "Title",
-        description: "Description",
-        image_url: "product.jpg",
-        price: "29.90"
-      })
-
-      {:ok, cart} = Sales.create_cart()
+      book = book_fixture()
+      cart = cart_fixture()
       Sales.add_book_to_cart(book, cart)
       Sales.add_book_to_cart(book, cart)
       
@@ -56,21 +63,11 @@ defmodule Storex.SalesTest do
     end
 
     test "list_line_items/1 list items that belong to a cart" do
-      {:ok, book1} = Store.create_book(%{
-        title: "Title",
-        description: "Description",
-        image_url: "product.jpg",
-        price: "29.90"
-      })
-      {:ok, book2} = Store.create_book(%{
-        title: "Title",
-        description: "Description 2",
-        image_url: "product.jpg",
-        price: "39.90"
-      })
-      {:ok, cart1} = Sales.create_cart()
-      {:ok, cart2} = Sales.create_cart()
-  
+      book1 = book_fixture()
+      book2 = book_fixture()
+      cart1 = cart_fixture()
+      cart2 = cart_fixture()
+
       Sales.add_book_to_cart(book1, cart1)
       Sales.add_book_to_cart(book2, cart2)
       
@@ -82,19 +79,9 @@ defmodule Storex.SalesTest do
     end
   
     test "line_items_quantity_count/1 returns the total quantity of items" do
-      {:ok, book1} = Store.create_book(%{
-        title: "Title",
-        description: "Description",
-        image_url: "product.jpg",
-        price: "29.90"
-      })
-      {:ok, book2} = Store.create_book(%{
-        title: "Title",
-        description: "Description 2",
-        image_url: "product.jpg",
-        price: "39.90"
-      })
-      {:ok, cart} = Sales.create_cart()
+      book1 = book_fixture()
+      book2 = book_fixture()
+      cart = cart_fixture()
       Sales.add_book_to_cart(book1, cart)
       Sales.add_book_to_cart(book1, cart)
       Sales.add_book_to_cart(book2, cart)
@@ -106,19 +93,9 @@ defmodule Storex.SalesTest do
     end
 
     test "line_items_total_price/1 returns the total price of items" do
-      {:ok, book1} = Store.create_book(%{
-        title: "Title",
-        description: "Description",
-        image_url: "product.jpg",
-        price: "10.00"
-      })
-      {:ok, book2} = Store.create_book(%{
-        title: "Title",
-        description: "Description 2",
-        image_url: "product.jpg",
-        price: "15.00"
-      })
-      {:ok, cart} = Sales.create_cart()
+      book1 = book_fixture(price: "10.00")
+      book2 = book_fixture(price: "15.00")
+      cart = cart_fixture()
       Sales.add_book_to_cart(book1, cart)
       Sales.add_book_to_cart(book1, cart)
       Sales.add_book_to_cart(book2, cart)
