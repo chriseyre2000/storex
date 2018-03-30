@@ -19,5 +19,11 @@ defmodule StorexWeb.SessionController do
             |> put_flash(:error, "Unable to sign in")
             |> render("new.html")    
       end  
-    end    
+    end
+    
+    def delete(conn, _params) do
+        conn
+        |> CurrentUser.forget_session() 
+        |> redirect(to: book_path(conn, :index))
+    end
 end    

@@ -31,4 +31,11 @@ defmodule StorexWeb.Plugs.CurrentUser do
     def get(conn) do
         conn.assigns[@assign_name]
     end
+
+    def forget_session(conn) do 
+       conn 
+       |> put_session(@session_name, nil)
+       |> assign_user(nil)
+
+    end    
 end
