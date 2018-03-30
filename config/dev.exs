@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :storex, Storex.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "patrick",
+  password: "Getting started",
   database: "storex_dev",
   hostname: "localhost",
   pool_size: 10
