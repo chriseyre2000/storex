@@ -10,7 +10,7 @@
 
   <body>
     <nav class="main-nav">
-      <a class="main-nav__logo" href="/"></a>
+      <a class="main-nav__logo" href="/"></a><br/>
     </nav>  
 
     <main class="content">
@@ -26,6 +26,12 @@
       <%= render @view_module, @view_template, assigns %>
 
     </main>
+
+    <div class="footer">
+      <%= link to: "https://github.com/chriseyre2000"  do %>
+      <span class="site-author">My Github</span><span>&nbsp;-&nbsp;</span><span><%= Date.utc_today() %></span> 
+      <% end %>
+    </div>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
