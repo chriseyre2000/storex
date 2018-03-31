@@ -40,3 +40,5 @@
         <%= @total %>
     </span>
 </div>
+
+<%= link "Checkout", to: checkout_path(@conn, :new), class: "button button-primary" %>
