@@ -1,4 +1,7 @@
 defmodule StorexWeb.Plugs.ItemsCount do
+    @moduledoc """
+    This plug exposes the total item count to the pipeline.
+    """
     import Plug.Conn
     alias Storex.Sales
     alias StorexWeb.Plugs

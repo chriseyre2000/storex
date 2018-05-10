@@ -1,4 +1,7 @@
 defmodule StorexWeb.Plugs.AdminOnly do 
+  @moduledoc """
+  This adds a filter for administrators to the pipeline.
+  """
   import Plug.Conn
   alias StorexWeb.Plugs
 

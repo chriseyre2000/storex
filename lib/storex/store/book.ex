@@ -1,4 +1,7 @@
 defmodule Storex.Store.Book do
+  @moduledoc """
+  This is the book context
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -53,7 +53,7 @@ defmodule StorexWeb.BookController do
             {:ok, _book} ->
                 conn
                 |> put_flash(:info, "Book created")
-                |> redirect( to: "/" )
+                |> redirect(to: "/")
             
             {:error, changeset} ->
                 render conn, "new.html", changeset: changeset

@@ -1,4 +1,7 @@
 defmodule StorexWeb.Plugs.Cart do
+    @moduledoc """
+    This provides the Shopping Cart to the pipeline.
+    """
     import Plug.Conn
     alias Storex.Sales
 
@@ -11,16 +14,17 @@ defmodule StorexWeb.Plugs.Cart do
 
     def call(conn, _opts) do
         cart_id = get_session(conn, @session_name)
-        cond do
-            cart = cart_id && Sales.get_cart!(cart_id) -> 
-                assign(conn, @assign_name, cart)
-            true ->
-                {:ok, cart} = Sales.create_cart()
-                
-                conn
-                |> put_session(@session_name, cart.id)
-                |> assign(@assign_name, cart)
-        end
+        
+        cart = cart_id && Sales.get_cart!(cart_id)
+        
+        if cart do
+            assign(conn, @assign_name, cart)
+        else
+            conn
+            |> put_session(@session_name, cart.id)
+            |> assign(@assign_name, cart)
+
+        end                    
     end
 
     def get(conn) do

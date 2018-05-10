@@ -69,14 +69,14 @@ defmodule Storex.Sales do
 
   def process_order(user, cart, attrs) do
     result = Ecto.Multi.new
-    |> Ecto.Multi.run(:order, fn(_) -> create_order(user, attrs) end )
-    |> Ecto.Multi.run(:line_items, fn(%{order: order}) -> create_order_line_items(order, cart) end )
+    |> Ecto.Multi.run(:order, fn(_) -> create_order(user, attrs) end)
+    |> Ecto.Multi.run(:line_items, fn(%{order: order}) -> create_order_line_items(order, cart) end)
     |> Repo.transaction()
 
     case result do
       {:ok, %{order: order}} ->
         {:ok, Repo.preload(order, [:user, :line_items])}
-      {:error, :order, changeset, _ } ->
+      {:error, :order, changeset, _} ->
         {:error, changeset}  
     end  
   end

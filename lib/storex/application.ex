@@ -1,4 +1,8 @@
 defmodule Storex.Application do
+  @moduledoc """
+  This is the entrypoint for the storex application.
+  """
+  
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html

@@ -1,4 +1,9 @@
 defmodule Storex.Store do
+
+    @moduledoc """
+    This is the store context.
+    """
+
     alias Storex.Repo
     alias Storex.Store.Book
 

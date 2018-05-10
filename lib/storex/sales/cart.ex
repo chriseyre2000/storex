@@ -1,4 +1,7 @@
 defmodule Storex.Sales.Cart do
+  @moduledoc """
+  This provides the sales cart schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

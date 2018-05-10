@@ -1,4 +1,7 @@
 defmodule Storex.Sales.Order do
+  @moduledoc """
+  This provides the sales order schema.
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias Storex.Sales.Order

@@ -1,4 +1,8 @@
 defmodule Storex.Sales.LineItem do
+  @moduledoc """
+  This provides the sales line item schema.
+  """
+ 
   use Ecto.Schema
   import Ecto.Changeset
   alias Storex.Sales.LineItem

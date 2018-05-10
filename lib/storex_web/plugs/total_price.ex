@@ -1,4 +1,7 @@
 defmodule StorexWeb.Plugs.TotalPrice do
+    @moduledoc """
+    This Plug exposes the total price to the pipeline.
+    """
     import Plug.Conn
     alias Storex.Sales
     alias StorexWeb.Plugs

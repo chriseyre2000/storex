@@ -33,7 +33,7 @@ defmodule Storex.Accounts.User do
     |> cast(attrs, [:is_admin])
   end
 
-  defp put_password_hash(changeset = %{valid?: true}) do
+  defp put_password_hash(%{valid?: true} = changeset) do
     password = get_change(changeset, :password)
     change(changeset, Comeonin.Bcrypt.add_hash(password))
   end  
