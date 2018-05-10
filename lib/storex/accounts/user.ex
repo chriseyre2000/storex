@@ -13,18 +13,24 @@ defmodule Storex.Accounts.User do
     field :full_name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    field :is_admin, :boolean
 
     timestamps()
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :full_name, :password])
     |> validate_required([:email, :full_name, :password])
     |> validate_length(:password, min: 6)
     |> unique_constraint(:email)
     |> put_password_hash()
+  end
+
+  def admin_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:is_admin])
   end
 
   defp put_password_hash(changeset = %{valid?: true}) do

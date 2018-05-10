@@ -24,6 +24,12 @@ defmodule Storex.Accounts do
   def authenticate_user(email, password) do
     Repo.get_by(User, email: email)
     |> User.check_password(password)
-  end  
+  end
+  
+  def mark_as_admin(user) do
+    user
+    |> User.admin_changeset(%{is_admin: true})
+    |> Repo.update()
+  end
 
 end
